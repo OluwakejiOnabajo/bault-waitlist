@@ -5,6 +5,8 @@ import BaultLogo from "./assets/logo.png";
 import axios from "axios";
 import { server } from "./server";
 import { Link } from "react-router-dom";
+import { FaDiscord, FaFacebookF } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +17,7 @@ const App = () => {
     if (email !== "" && /\S+@\S+\.\S+/.test(email)) {
       setIsLoading(true);
       
-      await axios.post(`${server}/user/waitlist`, { email }).then((response) => {
+      await axios.post(`${server}/user/add-waitlist`, { email }).then((response) => {
         if (response.data.success) {
           setSuccessModal(true);
         } else {
@@ -53,11 +55,11 @@ const App = () => {
                 style={{ animation: "spin 8s linear infinite" }}
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/80"></div>
+              {/* <div className="absolute inset-0 bg-black/80"></div> */}
             </div>
 
             <h1 className="text-2xl md:text-4xl capitalize font-bold text-center">
-              Automated trading starts now. One platform, countless strategies.
+              Automated trading starts now. <span className="italic" style={{ fontFamily: "'Caveat', cursive" }}>One platform, countless strategies.</span>
             </h1>
             {/* <h1 className='text-xl capitalize font-normal mt-2 italic text-center'>be first to unlock it.</h1> */}
 
@@ -104,6 +106,16 @@ const App = () => {
         }}
         containerClassName="!fixed !top-20 left-20 w-full z-[9999] text-sm font-normal"
       />
+      {/* Social footer */}
+      <div className="w-full absolute bottom-0 right-0 text-center mx-auto py-3">
+        <div className="flex justify-center items-center gap-4">
+          <span className="text-white text-sm font-normal">Follow us on:</span>
+          <Link className="rounded-full p-2 bg-[#16182d] text-white"><FaFacebookF size={16}/></Link>
+          <Link className="rounded-full p-2 bg-[#16182d] text-white"><BsTwitterX size={16}/></Link>
+          <Link className="rounded-full p-2 bg-[#16182d] text-white"><FaDiscord size={16}/></Link>
+
+        </div>        
+      </div>
     </div>
   );
 };
