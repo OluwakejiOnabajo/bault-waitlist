@@ -75,6 +75,7 @@ const App = () => {
               />
               <button
                 type="button"
+                disabled={isLoading}
                 onClick={handleWaitlist}
                 className="absolute right-1 top-1/2 -translate-y-1/2 bg-white text-black rounded px-4 py-2 hover:bg-gray-200 transition flex gap-2" // position button absolutely within relative parent
               >
