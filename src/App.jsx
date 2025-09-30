@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import BaultLogo from "./assets/logo.png";
 import axios from "axios";
 import { server } from "./server";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -16,15 +17,14 @@ const App = () => {
       
       await axios.post(`${server}/user/waitlist`, { email }).then((response) => {
         if (response.data.success) {
-          setIsLoading(false);
           setSuccessModal(true);
         } else {
           toast.error(response.data.message || "Something went wrong");
-          setIsLoading(false);
         }
       }).catch((error) => {
         console.log(error);
         toast.error(error.response.data.message || error.message || "Something went wrong");
+      }).finally(() => {
         setIsLoading(false);
       });
       
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <div className="h-screen flex justify-center items-center text-3xl font-bold">
-      <div className="w-full max-w-xl p-8 my-8 mx-auto flex flex-col items-center justify-center text-center z-50">
+      <div className="w-full max-w-2xl p-8 my-8 mx-auto flex flex-col items-center justify-center text-center z-50">
         {successModal ? (
           <div>
             <BiCheckCircle size={300} className="mb-6 mx-auto" />
@@ -91,7 +91,7 @@ const App = () => {
             </div>
           </div>
         )}
-            <div className="text-base font-normal my-7 px-3 py-1 border border-gray-300 rounded-md text-center text-gray-300 flex gap-2 justify-center items-center cursor-pointer"> <img src={BaultLogo} className="w-[20px] h-[20px]" /> Bault</div>
+            <Link to="./" onClick={()=>setSuccessModal(false)} className="text-base font-normal my-7 px-3 py-1 border border-gray-300 rounded-md text-center text-gray-300 flex gap-2 justify-center items-center cursor-pointer"> <img src={BaultLogo} className="w-[20px] h-[20px]" /> Bault</Link>
       </div>
 
       <Toaster
